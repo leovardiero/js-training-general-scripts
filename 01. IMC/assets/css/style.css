@@ -66,18 +66,18 @@ form button:hover {
 }
 
 /* LABEL CLASSES */
-.message {
+.isMessage {
   color: black;
 }
 
-.ok {
+.isOk {
   color: green;
 }
 
-.warning {
+.isWarning {
   color: orange;
 }
 
-.danger {
+.isDanger {
   color: red;
 }
