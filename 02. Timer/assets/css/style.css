@@ -26,3 +26,31 @@ body {
   padding: 20px;
   border-radius: 10px;
 }
+
+.timer {
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+}
+
+.container button {
+  height: 50px;
+  padding: 5px;
+  margin-top: 10px;
+  width: 24.3%;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.container button:hover {
+  background-color: var(--primary-color-darker);
+}
+
+/* Timer Styles */
+.isStopped {
+  color: red;
+}
