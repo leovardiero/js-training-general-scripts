@@ -8,21 +8,23 @@ let elapsedTime = 0;
 /********************************************************* 
 *                                      AUXILIARY FUNCTIONS
 *********************************************************/ 
-const updateText = function(seconds) {
+const getText = function(seconds) {
   actualDate = new Date(seconds * 1000);
-
-  const timerText = document.querySelector('.timer');
-  timerText.innerHTML = actualDate.toLocaleTimeString('pt-BR', {
+  return actualDate.toLocaleTimeString('pt-BR', {
     hour12: false,
     timeZone: 'UTC'
   });
+}
+
+const updateText = function(seconds) {
+  const timerText = document.querySelector('.timer');
+  timerText.innerHTML = getText(seconds);
 }
 
 const startTimer = function() {
   timer = setInterval(function() {  
     elapsedTime++;
     updateText(elapsedTime);
-    console.log(elapsedTime);
   }, 
   1000);
 
@@ -49,6 +51,23 @@ const resetTimer = function () {
   timerText.classList.remove('isStopped');
 }
 
+const addMark = function() {
+  console.log('clicked');
+  const divMarks = document.querySelector('.marks');
+  const cntMarks = divMarks.childElementCount;
+
+  // Create the element
+  const p = document.createElement('p');
+  p.innerHTML = `${cntMarks + 1}: ${getText(elapsedTime)}`;
+
+  divMarks.appendChild(p);
+}
+
+const clearMarks = function() {
+  const divMarks = document.querySelector('.marks');
+  divMarks.innerHTML = '';
+}
+
 /********************************************************* 
 *                                               MAIN EVENT
 *********************************************************/ 
@@ -71,8 +90,11 @@ document.addEventListener('click', (e) => {
 
   if (e.target.classList.contains('reset')) {
     resetTimer();
+    clearMarks();
   }
 
-
+  if (e.target.classList.contains('mark')) {
+    addMark();
+  }
 
 });
