@@ -22,7 +22,6 @@ class Login {
 
     // Find user exists
     this.user = await loginModel.findOne({email: this.body.email});
-    console.log(this.user)
     
     // Check if user not exists
     if(!this.user) { 
