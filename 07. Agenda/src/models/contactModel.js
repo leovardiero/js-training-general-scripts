@@ -19,7 +19,7 @@ function Contact(body) {
 };
 
 Contact.prototype.cleanUp = function () {
-  
+
   // All fields on req.body is string
   for (const key in this.body) {
     if (typeof this.body[key] !== 'string') {
@@ -57,9 +57,31 @@ Contact.prototype.create = async function () {
   this.contact = await contactModel.create(this.body)
 }
 
-Contact.searchId = async function(id) {
+Contact.prototype.edit = async function (id) {
+  if (typeof id !== 'string') return;
+  this.validate();
+  if (this.errors.length > 0) return;
+  this.contact = await contactModel.findByIdAndUpdate(id, this.body, { new: true });
+  return this.contact;
+
+}
+
+// Static Methods
+Contact.searchId = async function (id) {
   if (typeof id !== 'string') return;
   const contact = await contactModel.findById(id)
+  return contact;
+};
+
+Contact.searchContacts = async function () {
+  const contacts = await contactModel.find()
+    .sort({ createdAt: 1 });
+  return contacts;
+};
+
+Contact.delete = async function(id) {
+  if (typeof id !== 'string') return;
+  const contact = await contactModel.findByIdAndDelete(id)
   return contact;
 }
 

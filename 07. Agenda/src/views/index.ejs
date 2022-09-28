@@ -11,26 +11,22 @@
       <%- include('includes/messages.ejs') %> 
 
       <div class="responsive-table">
-        <table class="table my-3">
-          <tr>
-            <td>Leonardo</td>
-            <td>Bittencourt</td>
-            <td>035997063722</td>
-            <td>meuemail@gmail.com</td>
-          </tr>  
-          <tr>
-            <td>Leonardo</td>
-            <td>Bittencourt</td>
-            <td>035997063722</td>
-            <td>meuemail@gmail.com</td>
-          </tr>  
-          <tr>
-            <td>Leonardo</td>
-            <td>Bittencourt</td>
-            <td>035997063722</td>
-            <td>meuemail@gmail.com</td>
-          </tr>  
-        </table>  
+        <% if (contacts.length > 0) { %>
+          <table class="table my-3">
+            <% contacts.forEach(contact => { %>
+              <tr>
+                <td><%= contact.name %> </td>
+                <td><%= contact.lastname %> </td>
+                <td><%= contact.email %> </td>
+                <td><%= contact.phone %> </td>
+                <td><a href="/contact/<%= contact._id %>"> Editar </a></td>
+                <td><a class="text-danger" href="/contact/delete/<%= contact._id %>"> Remover </a></td>
+              </tr>
+            <% }); %>
+          </table> 
+        <% } else { %>
+          <p class="text-center lead">Nenhum contato foi encontrado</p>
+        <% } %> 
       </div>
     </div>
     <div class="col-lg-2"></div>

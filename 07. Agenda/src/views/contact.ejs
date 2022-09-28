@@ -6,12 +6,17 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8 my-3">
       <h1 class="text-center">Contato</h1>
-      <p class = "text-center lead">Crie ou edite seu contato abaixo:</p>
-
+      <p class = "text-center lead">Crie ou edite seu contato abaixo:</p>    
       <%- include('includes/messages.ejs') %> 
-
+      
+      <!-- Conditional selection of includes -->
+      <% if(contact._id) { %> 
+      <form action="/contact/edit/<%= contact._id %>" method="POST">
+      <% } else { %>
       <form action="/contact/create" method="POST">
-        <!-- Input CSRF Token -->
+      <% } %> 
+      
+      <!-- Input CSRF Token -->
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         
         <!-- Form Fields -->
@@ -29,7 +34,13 @@
           <input value="<%= contact.email  %>" type="email" class="form-control" name="email">
 
         </div>
+
+        <% if(contact._id) { %> 
+        <button type="submit" class="btn btn-primary">Editar Contato</button>
+        <% } else { %>
         <button type="submit" class="btn btn-primary">Criar Contato</button>
+        <% } %> 
+        
       </form>
 
     </div>
