@@ -1,47 +1,59 @@
 import validator from "validator";
 
-export default class Login {
+export default class Contact {
   // Constructor method 
   constructor(formClass) {
     this.form = document.querySelector(formClass)
     console.log('teste')
   };
 
-  // Init method
   init() {
     this.events();
+    console.log(this.form)
   };
 
   events() {
-    if(!this.form) return;
+    if (!this.form) return;
     this.form.addEventListener('submit', e => {
       e.preventDefault();
       this.validate(e);
     })
-  }
+  };
 
   validate(e) {
+    console.log('chegou aqui :)')
     const el = e.target;
 
+    const nameInput = el.querySelector('input[name="name"]');
+    const lastnameInput = el.querySelector('input[name="lastname"]');
+    const phoneInput = el.querySelector('input[name="phone"]');
     const emailInput = el.querySelector('input[name="email"]');
-    const passwordInput = el.querySelector('input[name="password"]');
-
     let error = false;
-    if(!validator.isEmail(emailInput.value)) {
-      Login.createError('Email Inválido!', emailInput);
+
+    // Name Validation
+    if (nameInput.value === '') {
       error = true;
+      Contact.createError('É necessário inserir um nome!', nameInput)
     } else {
-      Login.clearError(emailInput);
+      Contact.clearError(nameInput)
     };
 
-    if(passwordInput.value.length < 3 || passwordInput.value.length > 50) {
-      Login.createError('Senha Inválida!', passwordInput);
+    // Email Validation
+    if(emailInput.value !== '' && !validator.isEmail(emailInput.value)) {
+      Contact.createError('Email Inválido!', emailInput);
       error = true;
     } else {
-      Login.clearError(passwordInput); 
+      Contact.clearError(emailInput);
     };
 
-    if(!error) el.submit(); 
+    // Phone-Email dependency
+    if (emailInput.value === '' && phoneInput.value === '') {
+      Contact.createError('É necessário inserir um email ou um telefone válido!', phoneInput);
+    } else {
+      Contact.clearError(phoneInput)
+    };
+
+    if(!error) el.submit();
   };
 
   // Static methods
@@ -64,4 +76,4 @@ export default class Login {
       parent.nextSibling.remove()
     }
   }
-};
+}

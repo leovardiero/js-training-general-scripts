@@ -11,9 +11,9 @@
       
       <!-- Conditional selection of includes -->
       <% if(contact._id) { %> 
-      <form action="/contact/edit/<%= contact._id %>" method="POST">
+      <form action="/contact/edit/<%= contact._id %>" method="POST" class="contactForm">
       <% } else { %>
-      <form action="/contact/create" method="POST">
+      <form action="/contact/create" method="POST" class="contactForm">
       <% } %> 
       
       <!-- Input CSRF Token -->

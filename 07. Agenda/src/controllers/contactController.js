@@ -84,4 +84,4 @@ exports.delete = async function(req, res) {
     console.log(e);
     res.render('err404.ejs');
   }
-}
+} 
