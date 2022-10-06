@@ -16,6 +16,10 @@
           <p class = "text-center lead">Seus contatos abaixo:</p>
           <% if (contacts.length > 0) { %>
             <table class="table my-3">
+              <td><b>Nome</b></td>
+              <td><b>Sobrenome</b></td>
+              <td><b>Email</b></td>
+              <td><b>Phone</b></td>
               <% contacts.forEach(contact => { %>
                 <tr>
                   <td><%= contact.name %> </td>

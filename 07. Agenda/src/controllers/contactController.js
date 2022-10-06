@@ -7,7 +7,8 @@ exports.index = (req, res) => {
 
 exports.create = async function (req, res) {
   try {
-    const contact = new Contact(req.body);
+    const contact = new Contact(req.body, req.session.user);
+    console.log(req.session.user)
     await contact.create();
     
     // If there is any error
@@ -49,7 +50,7 @@ exports.edit = async function(req, res) {
   if(!req.params.id) return res.render('err404.ejs');
 
   try {
-    const contact = new Contact(req.body);
+    const contact = new Contact(req.body, req.session.user);
     await contact.edit(req.params.id);
 
     // If there is any error

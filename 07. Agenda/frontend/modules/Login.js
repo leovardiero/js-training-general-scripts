@@ -4,7 +4,6 @@ export default class Login {
   // Constructor method 
   constructor(formClass) {
     this.form = document.querySelector(formClass)
-    console.log('teste')
   };
 
   // Init method

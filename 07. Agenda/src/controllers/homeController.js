@@ -3,7 +3,7 @@ const Contact = require('../models/contactModel')
 exports.index = async(req, res) => {  
   if (req.session.user) {
     try {
-      const contacts = await Contact.searchContacts();
+      const contacts = await Contact.searchContacts(req.session.user._id);
       res.render('index', {contacts})
     } catch(e) {
       console.log(e);

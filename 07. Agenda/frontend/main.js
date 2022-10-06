@@ -7,8 +7,10 @@ import Contact from './modules/Contact';
 const signinForm = new Login('.signinForm');
 const loginForm = new Login('.loginForm');
 
-const contactForm = new Contact('.contactForm')
+const createContactForm = new Contact('.form-create-contact')
+const editContactForm = new Contact('.form-edit-contact')
 
 signinForm.init();
 loginForm.init();
-contactForm.init();
+createContactForm.init();
+editContactForm.init();

@@ -6,14 +6,16 @@ const contactSchema = new mongoose.Schema({
   lastname: { type: String, required: false, default: '' },
   email: { type: String, required: false, default: '' },
   phone: { type: String, default: '' },
+  owner: {type: String, required: true},
 
   createdAt: { type: Date, required: true, default: Date.now() }
 })
 
 const contactModel = mongoose.model('Contact', contactSchema);
 
-function Contact(body) {
+function Contact(body, owner) {
   this.body = body;
+  this.owner = owner;
   this.errors = [];
   this.contact = null;
 };
@@ -32,7 +34,8 @@ Contact.prototype.cleanUp = function () {
     name: this.body.name,
     lastname: this.body.lastname,
     email: this.body.email,
-    phone: this.body.phone
+    phone: this.body.phone,
+    owner: this.owner._id
   };
 };
 
@@ -63,7 +66,6 @@ Contact.prototype.edit = async function (id) {
   if (this.errors.length > 0) return;
   this.contact = await contactModel.findByIdAndUpdate(id, this.body, { new: true });
   return this.contact;
-
 }
 
 // Static Methods
@@ -73,8 +75,8 @@ Contact.searchId = async function (id) {
   return contact;
 };
 
-Contact.searchContacts = async function () {
-  const contacts = await contactModel.find()
+Contact.searchContacts = async function (owner) {
+  const contacts = await contactModel.find({owner: owner})
     .sort({ createdAt: 1 });
   return contacts;
 };

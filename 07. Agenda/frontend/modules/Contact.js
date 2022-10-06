@@ -4,12 +4,10 @@ export default class Contact {
   // Constructor method 
   constructor(formClass) {
     this.form = document.querySelector(formClass)
-    console.log('teste')
   };
 
   init() {
     this.events();
-    console.log(this.form)
   };
 
   events() {
@@ -21,7 +19,6 @@ export default class Contact {
   };
 
   validate(e) {
-    console.log('chegou aqui :)')
     const el = e.target;
 
     const nameInput = el.querySelector('input[name="name"]');
@@ -49,6 +46,7 @@ export default class Contact {
     // Phone-Email dependency
     if (emailInput.value === '' && phoneInput.value === '') {
       Contact.createError('É necessário inserir um email ou um telefone válido!', phoneInput);
+      error = true;
     } else {
       Contact.clearError(phoneInput)
     };
