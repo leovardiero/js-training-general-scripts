@@ -17,3 +17,12 @@ Delete Migration in case of error
 ```
 npx sequelize db:migrate:undo
 ```
+===============
+seeds:
+```
+npx sequelize seed:generate --name <name>
+```
+
+```
+npx sequelize db:seed:all
+```
