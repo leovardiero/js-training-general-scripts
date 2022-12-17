@@ -1,9 +1,17 @@
 import Aluno from '../models/Aluno';
+import Photo from '../models/Photo';
 
 class AlunoController {
   // Index - Show all "Alunos"
   async index(req, res) {
-    const alunos = await Aluno.findAll();
+    const alunos = await Aluno.findAll({
+      attributes: ['id', 'nome', 'sobrenome', 'email', 'data_nascimento'],
+      order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
+      include: {
+        model: Photo,
+        attributes: ['url', 'original_name', 'filename'],
+      },
+    });
     res.json(alunos);
   }
 
@@ -30,7 +38,17 @@ class AlunoController {
         });
       }
 
-      const aluno = await Aluno.findByPk(req.params.id);
+      const aluno = await Aluno.findByPk(
+        req.params.id,
+        {
+          attributes: ['id', 'nome', 'sobrenome', 'email', 'data_nascimento'],
+          order: [['id', 'DESC'], [Photo, 'id', 'DESC']],
+          include: {
+            model: Photo,
+            attributes: ['original_name', 'filename'],
+          },
+        },
+      );
 
       if (!aluno) {
         return res.satus(400).json({
@@ -38,13 +56,7 @@ class AlunoController {
         });
       }
 
-      const {
-        nome, sobrenome, email, data_nascimento,
-      } = aluno;
-
-      return res.status(200).json({
-        nome, sobrenome, email, data_nascimento,
-      });
+      return res.status(200).json(aluno);
     } catch (e) {
       return res.status(400).json(null);
     }
